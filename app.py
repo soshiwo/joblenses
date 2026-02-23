@@ -5,7 +5,7 @@ import psychometric_engine
 
 app = Flask(__name__)
 # Use a strong secret key for session management
-app.secret_key = os.environ.get('SECRET_KEY', os.urandom(32))
+app.secret_key = os.environ.get('SECRET_KEY')
 
 @app.route('/')
 def home():
@@ -95,10 +95,5 @@ def results():
             dominant_driver=dominant_driver
         )
     except Exception as e:
-        # Graceful fallback if engine parsing fails
         print(f"Error processing results: {e}")
         return redirect(url_for('home'))
-
-if __name__ == '__main__':
-    # Run application
-    app.run(host='0.0.0.0', port=5001, debug=True)
